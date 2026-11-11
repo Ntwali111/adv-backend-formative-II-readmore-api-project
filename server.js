@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 
 const authorRoutes = require('./routes/authorRoutes');
+const bookRoutes = require('./routes/bookRoutes');
 
 const app = express();
 
@@ -11,6 +12,9 @@ app.use(express.json());
 
 // all author endpoints live under /authors
 app.use('/authors', authorRoutes);
+
+// all book endpoints live under /books
+app.use('/books', bookRoutes);
 
 // Health-check route
 app.get('/', (req, res) => {
