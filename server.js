@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 
 const app = express();
 
-// Lets Express read JSON from request bodies (req.body)
+// Expressing read JSON from request bodies (req.body)
 app.use(express.json());
 
 // Health-check route
