@@ -53,8 +53,13 @@ exports.deleteAuthor = async (req, res) => {
     const author = await Author.findById(req.params.id);
     if (!author) return res.status(404).json({ message: 'Author not found' });
 
-    // TODO (Rule 4, Option A, block): count this author's books with Book.countDocuments.
-    // If the count is greater than 0, return status 409 with a clear message.
+        // block the delete if the author still has books, so no orphans are left behind
+    const bookCount = await Book.countDocuments({ author: author._id });
+    if (bookCount > 0) {
+      return res.status(409).json({
+        message: `Cannot delete: this author still has ${bookCount} book(s). Delete or move them first.`
+      });
+    }
 
     await author.deleteOne();
     res.json({ message: 'Author deleted' });
