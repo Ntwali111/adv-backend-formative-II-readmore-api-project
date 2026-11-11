@@ -2,10 +2,15 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 
+const authorRoutes = require('./routes/authorRoutes');
+
 const app = express();
 
-// Expressing read JSON from request bodies (req.body)
+// lets Express read JSON from request bodies (req.body)
 app.use(express.json());
+
+// all author endpoints live under /authors
+app.use('/authors', authorRoutes);
 
 // Health-check route
 app.get('/', (req, res) => {
